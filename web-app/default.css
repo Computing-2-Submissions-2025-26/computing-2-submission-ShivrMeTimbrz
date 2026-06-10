@@ -1,0 +1,138 @@
+html, body {
+  margin: 0;
+  height: 100%;
+  background-image: url("assets/background.svg");
+  background-size: 32vmin;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  width: 80vmin;
+  height: 80vmin;
+  border-radius: 2vmin;
+  overflow: hidden;
+  filter: drop-shadow(0.5vmin 0.5vmin 0vmin rgba(33, 23, 44, 0.3));
+}
+
+.cell {
+  background: #eee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.layout-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;  
+  min-height: 100vh;
+}
+
+.kittyPool {
+  display: grid;
+  gap: 1vmin;
+} 
+
+.kitty {
+  width: 8vmin;
+  height: 8vmin;
+  object-fit: contain;
+  filter: drop-shadow(0.5vmin 0.5vmin 0vmin rgba(33, 23, 44, 0.3));
+}
+
+.winner-popup {
+  height: 20vmin;
+  position: fixed;
+  left: 50%;
+  top: 0%;
+  transform: translate(-50%, -50%) scale(0.1);
+  z-index: 10;
+  visibility: hidden;
+  transition: transform 0.4s, top 0.4s;
+}
+
+.show-winner-popup {
+  visibility: visible;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+
+/* Responsive Sizing */
+
+@media (height >= 108vw) {
+  .layout-container {
+    gap: 1vmin;
+    flex-direction: column;
+  }
+  .kittyPool {
+    grid-template-columns: repeat(8, minmax(8vmin, 1fr));
+  }
+}
+
+@media (height >= 108vw) {
+  .layout-container {
+    gap: calc((100vh - 106vmin)/2);
+    flex-direction: column;
+  }
+  .kittyPool {
+    grid-template-columns: repeat(8, minmax(8vmin, 1fr));
+  }
+}
+
+@media (height >= 126vw) {
+  .layout-container {
+    gap: 10vmin
+  }
+  .kittyPool {
+    grid-template-columns: repeat(8, minmax(8vmin, 1fr));
+  }
+}
+
+@media (height <= 108vw) and (width <= 108vh) {
+  .layout-container {
+    gap: 1vmin;
+  }
+  .kittyPool {
+    grid-template-columns: repeat(1, minmax(8vmin, 1fr));
+  }
+}
+
+@media (width >= 108vh) {
+  .layout-container {
+    gap: calc((100vw - 106vmin)/2);
+  }
+  .kittyPool {
+    grid-template-columns: repeat(1, minmax(8vmin, 1fr));
+  }
+}
+
+@media (width >= 126vh) {
+  .layout-container {
+    gap: 10vmin
+  }
+  .kittyPool {
+    grid-template-columns: repeat(1, minmax(8vmin, 1fr));
+  }
+}
+
+@media (width >= 144vh) {
+  .layout-container {
+    gap: 10vmin
+  }
+  .kittyPool {
+    grid-template-columns: repeat(2, minmax(8vmin, 1fr));
+  }
+}
+
+@media (width >=  175vh) {
+  .layout-container {
+    gap: 10vmin
+  }
+  .kittyPool {
+    grid-template-columns: repeat(4, minmax(8vmin, 1fr));
+  }
+}
