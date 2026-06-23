@@ -1,4 +1,51 @@
-// Declarations
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>boop.js - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#Boop">Boop</a></li><li><a href="global.html#GameState">GameState</a></li><li><a href="global.html#Kitty">Kitty</a></li><li><a href="global.html#KittyLocation">KittyLocation</a></li><li><a href="global.html#KittyPool">KittyPool</a></li><li><a href="global.html#checkBoopSpace">checkBoopSpace</a></li><li><a href="global.html#checkBoopable">checkBoopable</a></li><li><a href="global.html#checkCatKitten">checkCatKitten</a></li><li><a href="global.html#clearGradsAndBoops">clearGradsAndBoops</a></li><li><a href="global.html#countCats">countCats</a></li><li><a href="global.html#findRowsOfThree">findRowsOfThree</a></li><li><a href="global.html#getAdjacentKitties">getAdjacentKitties</a></li><li><a href="global.html#getBoopSpace">getBoopSpace</a></li><li><a href="global.html#getCoordinatesFromID">getCoordinatesFromID</a></li><li><a href="global.html#getIDFromCoords">getIDFromCoords</a></li><li><a href="global.html#getKittyPool">getKittyPool</a></li><li><a href="global.html#getWinner">getWinner</a></li><li><a href="global.html#graduateKitty">graduateKitty</a></li><li><a href="global.html#initGameState">initGameState</a></li><li><a href="global.html#isEmptyBedSpace">isEmptyBedSpace</a></li><li><a href="global.html#isEmptyPool">isEmptyPool</a></li><li><a href="global.html#isInKittyPool">isInKittyPool</a></li><li><a href="global.html#isOffBoard">isOffBoard</a></li><li><a href="global.html#isValidTurn">isValidTurn</a></li><li><a href="global.html#placeKitty">placeKitty</a></li><li><a href="global.html#removeKitty">removeKitty</a></li><li><a href="global.html#removeRowOfThree">removeRowOfThree</a></li><li><a href="global.html#swapPlayer">swapPlayer</a></li><li><a href="global.html#updateBedAndPools">updateBedAndPools</a></li><li><a href="global.html#updateBedWithBoops">updateBedWithBoops</a></li></ul>
+    
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">boop.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>// Declarations
 import R from "./ramda.js";
 
 /**
@@ -15,7 +62,7 @@ import R from "./ramda.js";
 
 /**
  * @typedef {Object} GameState
- * @property {Array<Array<Kitty|null>>} bedState - A 6x6 bed.
+ * @property {Array&lt;Array&lt;Kitty|null>>} bedState - A 6x6 bed.
  * @property {"orange"|"grey"} player - The current player.
  * @property {KittyPool} kittyPool - Contains the players' pools of kitties.
  * @property {string[][]} boops - A 2 dimensional array of booped kitties
@@ -38,7 +85,7 @@ function initGameState() {
             [null, null, null, null, null, null],
             [null, null, null, null, null, null]
         ],
-        "currentPlayer": "orange",
+        "player": "orange",
         "winner": null,
         "kittyPool": {
             "orange": [
@@ -73,7 +120,7 @@ function initGameState() {
  * @returns {Kitty[]} The current player's kitty pool.
  */
 function getKittyPool(gameState) {
-    return gameState.kittyPool[gameState.currentPlayer];
+    return gameState.kittyPool[gameState.player];
 }
 
 /**
@@ -99,7 +146,7 @@ function getIDFromCoords(row, column) {
  * Checks if a bedspace is empty.
  * @param {string} bedSpaceID - A two digit string representing the row and
  * column.
- * @param {Array<Array<Kitty|null>>} bedState - The 6x6 bed contents.
+ * @param {Array&lt;Array&lt;Kitty|null>>} bedState - The 6x6 bed contents.
  * @returns {boolean} Whether the space is empty.
  */
 function isEmptyBedSpace(bedSpaceID, bedState) {
@@ -130,7 +177,7 @@ function isValidTurn(kittyID, player) {
  * @returns {boolean} Whether that kitty is in the current player's pool.
  */
 function isInKittyPool(gameState, kittyID) {
-    const player = gameState.currentPlayer;
+    const player = gameState.player;
     const pool = gameState.kittyPool[player].map((kitty) => kitty.id);
     return (pool.includes(kittyID));
 }
@@ -170,8 +217,7 @@ function updateBedAndPools(bedSpaceID, gameState, placedKitty) {
     gameState.bedState[row][column] = getKittyPool(gameState).filter(
         (kitty) => kitty.id === placedKitty
     )[0];
-    const player = gameState.currentPlayer;
-    gameState.kittyPool[player] = getKittyPool(gameState).filter(
+    gameState.kittyPool[gameState.player] = getKittyPool(gameState).filter(
         (kitty) => kitty.id !== placedKitty
     );
     return gameState;
@@ -186,7 +232,7 @@ function updateBedAndPools(bedSpaceID, gameState, placedKitty) {
 
 /**
  * Finds any and all adjacent kitties to a given bed space.
- * @param {Array<Array<Kitty|null>>} bedState - The 6x6 bed contents.
+ * @param {Array&lt;Array&lt;Kitty|null>>} bedState - The 6x6 bed contents.
  * @param {string} bedSpaceID - The bedspace's ID
  * @returns {KittyLocation[]} An array of kitties and their coordinates.
  */
@@ -208,10 +254,10 @@ function getAdjacentKitties(bedState, bedSpaceID) {
         const checkColumn = column + dc;
 
         if (
-            checkRow >= 0 &&
-            checkRow < bedState.length &&
-            checkColumn >= 0 &&
-            checkColumn < bedState[0].length
+            checkRow >= 0 &amp;&amp;
+            checkRow &lt; bedState.length &amp;&amp;
+            checkColumn >= 0 &amp;&amp;
+            checkColumn &lt; bedState[0].length
         ) {
             const value = bedState[checkRow][checkColumn];
             if (value !== null) {
@@ -244,7 +290,7 @@ function getBoopSpace([boopRow, boopColumn], [boopedRow, boopedColumn]) {
  * @returns {boolean} Whether the coordinates are outside the 6×6 bed.
  */
 function isOffBoard(row, column) {
-    if (row < 0 || column < 0 || row > 5 || column > 5) {
+    if (row &lt; 0 || column &lt; 0 || row > 5 || column > 5) {
         return true;
     }
     return false;
@@ -252,7 +298,7 @@ function isOffBoard(row, column) {
 
 /**
  * Checks whether a booped kitty can move to its destination space.
- * @param {Array<Array<Kitty|null>>} bedState - The contents of the 6×6 bed.
+ * @param {Array&lt;Array&lt;Kitty|null>>} bedState - The contents of the 6×6 bed.
  * @param {number[]} boopPosition - The row and column of the kitty
  * causing the boop.
  * @param {number[]} boopedPosition - The row and column of the kitty
@@ -285,7 +331,7 @@ function checkBoopSpace(
  * @returns {boolean} Whether the boop is allowed.
  */
 function checkCatKitten(boopingKitty, boopedKitty) {
-    if (boopedKitty.isCat && !boopingKitty.isCat) {
+    if (boopedKitty.isCat &amp;&amp; !boopingKitty.isCat) {
         return false;
     }
     return true;
@@ -300,7 +346,7 @@ function checkCatKitten(boopingKitty, boopedKitty) {
 
 /**
  * Checks for valid boops from a given bed space.
- * @param {Array<Array<Kitty|null>>} bedState - The contents of the 6×6 bed.
+ * @param {Array&lt;Array&lt;Kitty|null>>} bedState - The contents of the 6×6 bed.
  * @param {string} bedSpaceID - The ID of the bed space being checked.
  * @returns  {Boop[]} Valid boops and their destinations.
  */
@@ -354,7 +400,7 @@ function updateBedWithBoops(gameState, boopables) {
 
 /**
  * Finds all rows of three matching kitties on the bed.
- * @param {Array<Array<Kitty|null>>} bedState - The contents of the 6×6 bed.
+ * @param {Array&lt;Array&lt;Kitty|null>>} bedState - The contents of the 6×6 bed.
  * @returns {KittyLocation[][]} Groups of three kitties and their positions.
  */
 function findRowsOfThree(bedState) {
@@ -414,7 +460,7 @@ function findRowsOfThree(bedState) {
  * @returns {boolean} Whether the current player's kitty pool is empty.
  */
 function isEmptyPool(gameState) {
-    if (gameState.kittyPool[gameState.currentPlayer].length < 1) {
+    if (gameState.kittyPool[gameState.player].length &lt; 1) {
         return true;
     }
     return false;
@@ -435,7 +481,7 @@ function graduateKitty(gameState, kitty) {
 
 /**
  * Counts the number of cats of each colour on the bed.
- * @param {Array<Array<Kitty|null>>} bedState - The contents of the 6×6 bed.
+ * @param {Array&lt;Array&lt;Kitty|null>>} bedState - The contents of the 6×6 bed.
  * @returns {number[]} The number of orange and grey cats respectively.
  */
 function countCats(bedState) {
@@ -480,7 +526,7 @@ function getWinner(gameState) {
 /**
  * Removes rows of three from the bed and graduates any kittens involved.
  * @param {GameState} gameState - The current game state.
- * @param {Array<Array<LocationKitty>>} trios - The rows of three kitties to
+ * @param {Array&lt;Array&lt;LocationKitty>>} trios - The rows of three kitties to
  * check.
  * @returns {GameState} The updated game state.
  */
@@ -513,8 +559,8 @@ function removeKitty(gameState, kittyID, bedSpaceID) {
     const player = kittyID.slice(0, -1);
     const [row, column] = getCoordinatesFromID(bedSpaceID);
     if (
-        isValidTurn(kittyID, gameState.currentPlayer) &&
-        gameState.bedState[row][column].id === kittyID &&
+        isValidTurn(kittyID, gameState.player) &amp;&amp;
+        gameState.bedState[row][column].id === kittyID &amp;&amp;
         isEmptyPool(gameState)
     ) {
         gameState = clearGradsAndBoops(gameState);
@@ -522,7 +568,7 @@ function removeKitty(gameState, kittyID, bedSpaceID) {
         kitty = graduateKitty(gameState, kitty);
         gameState.kittyPool[player].push(kitty);
         gameState.bedState[row][column] = null;
-        gameState.currentPlayer = swapPlayer(gameState.currentPlayer);
+        gameState.player = swapPlayer(gameState.player);
         gameState.boops.push([player, kittyID]);
     }
     return gameState;
@@ -539,11 +585,11 @@ function removeKitty(gameState, kittyID, bedSpaceID) {
 function placeKitty(bedSpaceID, gameState, placedKitty) {
     gameState = clearGradsAndBoops(gameState);
     if (
-        isEmptyBedSpace(bedSpaceID, gameState.bedState) &&
-        isValidTurn(placedKitty, gameState.currentPlayer)
+        isEmptyBedSpace(bedSpaceID, gameState.bedState) &amp;&amp;
+        isValidTurn(placedKitty, gameState.player)
     ) {
         gameState = updateBedAndPools(bedSpaceID, gameState, placedKitty);
-        gameState.currentPlayer = swapPlayer(gameState.currentPlayer);
+        gameState.player = swapPlayer(gameState.player);
         gameState = updateBedWithBoops(gameState, checkBoopable(
             gameState.bedState,
             bedSpaceID
@@ -567,34 +613,30 @@ export {
     removeKitty
 };
 
-const Boop = {
-    initGameState,
-    getKittyPool,
-    getCoordinatesFromID,
-    getIDFromCoords,
-    isEmptyBedSpace,
-    isValidTurn,
-    isInKittyPool,
-    swapPlayer,
-    clearGradsAndBoops,
-    updateBedAndPools,
-    getAdjacentKitties,
-    getBoopSpace,
-    isOffBoard,
-    checkBoopSpace,
-    checkCatKitten,
-    checkBoopable,
-    updateBedWithBoops,
-    findRowsOfThree,
-    isEmptyPool,
-    graduateKitty,
-    countCats,
-    getWinner,
-    removeRowOfThree,
-    removeKitty,
-    placeKitty
-};
+debugger;</code></pre>
+        </article>
+    </section>
 
-export default Object.freeze(Boop);
 
-debugger;
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Tue Jun 23 2026 16:40:31 GMT+0100 (British Summer Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+
+
+    <link type="text/css" rel="stylesheet" href="custom.css">
+    
+</body>
+</html>
