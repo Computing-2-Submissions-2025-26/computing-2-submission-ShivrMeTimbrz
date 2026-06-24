@@ -5,7 +5,7 @@ html, body {
   background-size: 32vmin;
 }
 
-.board {
+.bed {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   grid-template-rows: repeat(6, 1fr);
@@ -14,6 +14,15 @@ html, body {
   border-radius: 2vmin;
   overflow: hidden;
   filter: drop-shadow(0.5vmin 0.5vmin 0vmin rgba(33, 23, 44, 0.3));
+  outline: 2vmin solid;
+}
+
+.bed.orangeFocus {
+    outline-color: #FFAE3E;
+}
+
+.bed.greyFocus {
+    outline-color: #B5C1C9;
 }
 
 .cell {
@@ -76,6 +85,82 @@ html, body {
   outline: 1vmin dashed blue;
   outline-offset: 1vmin; 
   z-index: 20;
+} 
+
+
+
+/* Tutorial */
+
+#tutorialModal {
+  position: fixed;
+  inset: 0;
+  background: rgb(0 0 0 / 50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+#tutorialModal[hidden] {
+  display: none;
+}
+
+.modalContent {
+  background: white;
+  background-image: url("assets/background.svg");
+  background-size: 32vmin;
+  padding: 3rem;
+  border-radius: 1rem;
+  max-height: 80vmin;
+  max-width: 70vmin;
+  font-family: "Nunito", sans-serif;
+  overflow-y: auto;
+}
+
+.modalContent hr {
+  width: 70%;
+  margin: 1.5rem auto;
+  border: none;
+  height: 0.2rem;
+}
+
+.modalContent p {
+  background: #fff;
+  padding: 1rem 1.2rem;
+  border-radius: 1rem;
+  margin: 1rem 0;
+  box-shadow: 0 0.25rem 0.5rem rgba(0,0,0,0.08);
+}
+
+.tutorialDiagram {
+  display: block;
+  max-width: 80%;
+  height: auto;
+  margin: 0 auto;
+}
+
+#closeTutorial {
+  margin-top: 1rem;
+  padding: 0.8rem 2rem;
+  border: none;
+  border-radius: 2rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: #4C98C8;
+  color:#fff;
+}
+
+#closeTutorial:hover,
+#closeTutorial:focus-visible {
+  transform: scale(1.05);
+}
+
+.titleImage {
+  display: block;
+  width: 80%;
+  height: auto;
+  margin: 0 auto;
 }
 
 /* Responsive Sizing */

@@ -14,6 +14,18 @@ const kittyPools = document.getElementsByClassName("kittyPool");
 
 let heldKitty = null;
 
+//Tutorial
+const tutorialModal = document.getElementById("tutorialModal");
+const closeTutorial = document.getElementById("closeTutorial");
+tutorialModal.hidden = false;
+
+closeTutorial.addEventListener("click", function () {
+    tutorialModal.hidden = true;
+    bgm.play();
+});
+
+
+
 //sound effects
 let boopSound = document.createElement("audio");
 boopSound.src = "./assets/boop.mp3";
@@ -28,6 +40,7 @@ bgm.volume = 0.2;
 let victory = document.createElement("audio");
 victory.src = "./assets/victory.mp3";
 victory.preload = "auto";
+victory.volume = 0.5;
 
 const kittenSounds = [
     "./assets/kitten1.wav",
@@ -47,7 +60,8 @@ function playKittenSound() {
     sound.play();
 }
 
-// Dragging Lagging
+
+// Kitty Dragging
 let mouseX = 0; //Mouse Location X
 let mouseY = 0; //Mouse Location Y
 let kittyX = 0; //Kitty Location X
@@ -64,6 +78,8 @@ function kittyDrag() {
         heldKitty.style.top = (kittyY - heldKitty.offsetHeight / 2) + "px";
     }
 }
+
+// UI functions
 
 function pickUpKittyARIA() {
     Array.from(kitties).forEach(function (kitty) {
@@ -142,7 +158,6 @@ function dropKitty(droppedKitty, container) {
 }
 
 function pickUpKitty(heldKitty) {
-    bgm.play();
     playKittenSound();
     pickUpKittyARIA();
     heldKitty.style.position = "fixed";
@@ -163,7 +178,17 @@ function pickUpKitty(heldKitty) {
     setPoolClickThrough(true);
 }
 
-//Functions from Boop that are actually UI
+function swapPlayer() {
+    const bed = document.getElementById("bed");
+    bed.classList.remove("orangeFocus", "greyFocus");
+    if (gameState.winner) {
+        bed.classList.add(gameState.winner + "Focus");
+    } else if (gameState.currentPlayer === "orange") {
+        bed.classList.add("orangeFocus");
+    } else {
+        bed.classList.add("greyFocus");
+    }
+}
 
 function graduateKittyUI(graduations) {
     graduations.forEach(function (kitty) {
@@ -206,6 +231,7 @@ function transitionKitty(destination, kitty) {
         kitty.style.transition = "";
     }, {once: true});
 }
+
 function boop(boops) {
     boops.forEach(function ([destination, kitty]) {
         const kittyElement = document.getElementById(kitty);
@@ -215,7 +241,7 @@ function boop(boops) {
     });
 }
 
-//Programme set up
+// Event Listeners
 
 document.addEventListener("mousemove", function (event) {
     mouseX = event.clientX;
@@ -252,6 +278,7 @@ Array.from(kitties).forEach(function (kitty) {
                 graduateKittyUI(gameState.graduations);
                 boop(gameState.boops);
                 dropKittyARIA();
+                swapPlayer();
             }
         }
     });
@@ -274,6 +301,7 @@ Array.from(kitties).forEach(function (kitty) {
                 graduateKittyUI(gameState.graduations);
                 boop(gameState.boops);
                 dropKittyARIA();
+                swapPlayer();
             }
         }
     });
@@ -294,6 +322,7 @@ Array.from(bedSpaces).forEach(function (bedSpace) {
             graduateKittyUI(gameState.graduations);
             isWinner(gameState);
             dropKittyARIA();
+            swapPlayer();
         }
     });
     bedSpace.addEventListener("keydown", function (event) {
@@ -312,6 +341,7 @@ Array.from(bedSpaces).forEach(function (bedSpace) {
             graduateKittyUI(gameState.graduations);
             isWinner(gameState);
             dropKittyARIA();
+            swapPlayer();
         }
     });
 });

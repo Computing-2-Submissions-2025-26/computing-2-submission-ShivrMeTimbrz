@@ -168,8 +168,8 @@ function clearGradsAndBoops(gameState) {
 function updateBedAndPools(bedSpaceID, gameState, placedKitty) {
     const [row, column] = getCoordinatesFromID(bedSpaceID);
     gameState.bedState[row][column] = getCurrentPlayerKittyPool(
-        gameState).filter((kitty) => kitty.id === placedKitty
-    )[0];
+        gameState
+    ).filter((kitty) => kitty.id === placedKitty)[0];
     const player = gameState.currentPlayer;
     gameState.kittyPool[player] = getCurrentPlayerKittyPool(gameState).filter(
         (kitty) => kitty.id !== placedKitty

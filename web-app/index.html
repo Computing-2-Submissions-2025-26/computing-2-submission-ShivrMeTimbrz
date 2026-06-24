@@ -11,6 +11,36 @@
 <head>
 </head>
 <body>
+  <div id="tutorialModal"
+     role="dialog"
+     aria-labelledby="tutorialTitle"
+     aria-modal="true"
+     hidden>
+    <div class="modalContent">
+        <img src="assets/title.svg" alt="Boop title" class="titleImage">
+        <hr>
+        <img src="assets/Tutorial1.svg" alt="Kittens and Cats Example" class="tutorialDiagram">
+        <p>Take turns placing one of your kittens on the bed, in any open space available.</p>
+        <img src="assets/Tutorial2.svg" alt="Graduating 3 Kittens into 3 Cats" class="tutorialDiagram">
+        <img src="assets/Tutorial3.svg" alt="Graduating 3 Kittens into 3 Cats" class="tutorialDiagram">
+        <p>Graduate your kittens into cats by lining up three of your kittens in a row horizontally, vertically or diagonally.</p>
+        <img src="assets/Tutorial4.svg" alt="3 Cats in a row is a win" class="tutorialDiagram">
+        <p>Then line three of your cats in a row to WIN the game!</p>
+        <p>But it isn’t that simple...</p>
+        <img src="assets/Tutorial5.svg" alt="Booping" class="tutorialDiagram">
+        <p>When a piece is added to the board, it “boops” all of the pieces adjacent to it, pushing them one space away, including diagonally.</p>
+        <img src="assets/Tutorial6.svg" alt="Kitten being booped off the bed." class="tutorialDiagram">
+        <p>If a piece is booped off the bed, it is returned to the owner’s pool of kitties.</p>
+        <img src="assets/Tutorial7.svg" alt="Cat and Kitten not being booped by another kitten." class="tutorialDiagram">
+        <p>Cats can only be booped by other cats and you cannot boop a kitty into an occupied space.</p>
+        <img src="assets/Tutorial8.svg" alt="Kitten removed and promoted to cat." class="tutorialDiagram">
+        <p>If you have no kitties left in your pool at the start of your turn, you may remove one kitty from the bed and return it to your pool. This graduates it to a cat and ends your turn.</p>
+        <img src="assets/Tutorial9.svg" alt="Cat x8 = Win" class="tutorialDiagram">
+        <p>You can also win the game by having 8 cats of your colour on the bed.</p>
+
+        <button id="closeTutorial">Got it!</button>
+    </div>
+  </div>
   <img src="assets/orangeWins.svg" alt="Orange Wins!" class="winner-popup" id="winner">
   <div class="layout-container">
     <div class="kittyPool" id="orange">
@@ -25,7 +55,7 @@
     </div>
 
     <div class="page-center">
-      <div class="board">
+      <div class="bed orangeFocus" id="bed">
         <div class="cell" style="background-image: url('assets/topLeft.svg'); background-size: cover; background-position: center;" id="00"></div>
         <div class="cell" style="background-image: url('assets/topB.svg'); background-size: cover; background-position: center;" id="01"></div>
         <div class="cell" style="background-image: url('assets/topA.svg'); background-size: cover; background-position: center;" id="02"></div>
