@@ -24,7 +24,12 @@ closeTutorial.addEventListener("click", function () {
     bgm.play();
 });
 
+// Restart
+const restartButton = document.getElementById("restartButton");
 
+restartButton.addEventListener("click", function () {
+    location.reload();
+});
 
 //sound effects
 let boopSound = document.createElement("audio");
