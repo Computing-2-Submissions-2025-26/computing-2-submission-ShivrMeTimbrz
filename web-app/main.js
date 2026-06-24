@@ -1,7 +1,7 @@
 import {
     initGameState,
     isEmptyBedSpace,
-    isValidTurn,
+    isOwnedByPlayer,
     isInKittyPool,
     isEmptyPool,
     placeKitty,
@@ -239,7 +239,7 @@ Array.from(kitties).forEach(function (kitty) {
         event.stopPropagation();
         if (
             !heldKitty &&
-            isValidTurn(kitty.id, gameState.currentPlayer) &&
+            isOwnedByPlayer(kitty.id, gameState.currentPlayer) &&
             !gameState.winner
         ) {
             if (isInKittyPool(gameState, kitty.id)) {
@@ -260,7 +260,7 @@ Array.from(kitties).forEach(function (kitty) {
         if (
             (event.key === "Enter" || event.key === " ") &&
             !heldKitty &&
-            isValidTurn(kitty.id, gameState.currentPlayer) &&
+            isOwnedByPlayer(kitty.id, gameState.currentPlayer) &&
             !gameState.winner
         ) {
             if (isInKittyPool(gameState, kitty.id)) {
@@ -320,7 +320,7 @@ Array.from(kittyPools).forEach(function (kittyPool) {
     kittyPool.addEventListener("click", function () {
         if (
             heldKitty &&
-            isValidTurn(kittyPool.id, gameState.currentPlayer) &&
+            isOwnedByPlayer(kittyPool.id, gameState.currentPlayer) &&
             !gameState.winner
         ) {
             heldKitty = dropKitty(heldKitty, kittyPool);
@@ -331,7 +331,7 @@ Array.from(kittyPools).forEach(function (kittyPool) {
         if (
             (event.key === "Enter" || event.key === " ") &&
             heldKitty &&
-            isValidTurn(kittyPool.id, gameState.currentPlayer) &&
+            isOwnedByPlayer(kittyPool.id, gameState.currentPlayer) &&
             !gameState.winner
         ) {
             event.preventDefault(); //stop page scrolling

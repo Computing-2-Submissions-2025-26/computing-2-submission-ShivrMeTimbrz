@@ -30,11 +30,11 @@ describe("initGameState", function () {
     });
 });
 
-const getKittyPool = Boop.getKittyPool;
-describe("getKittyPool", function () {
+const getCurrentPlayerKittyPool = Boop.getCurrentPlayerKittyPool;
+describe("getCurrentPlayerKittyPool", function () {
     it("returns orange's pool when orange is the current player", function () {
         const gameState = initGameState();
-        const pool = getKittyPool(gameState);
+        const pool = getCurrentPlayerKittyPool(gameState);
         const expected = gameState.kittyPool.orange;
         if (pool !== expected) {
             throw new Error("Expected orange's kitty pool");
@@ -43,7 +43,7 @@ describe("getKittyPool", function () {
     it("returns grey's pool when grey is the current player", function () {
         const gameState = initGameState();
         gameState.currentPlayer = "grey";
-        const pool = getKittyPool(gameState);
+        const pool = getCurrentPlayerKittyPool(gameState);
         const expected = gameState.kittyPool.grey;
         if (pool !== expected) {
             throw new Error("Expected grey's kitty pool");

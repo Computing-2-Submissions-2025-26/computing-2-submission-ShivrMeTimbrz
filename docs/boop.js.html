@@ -29,7 +29,7 @@
 <nav >
     
     
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#Boop">Boop</a></li><li><a href="global.html#GameState">GameState</a></li><li><a href="global.html#Kitty">Kitty</a></li><li><a href="global.html#KittyLocation">KittyLocation</a></li><li><a href="global.html#KittyPool">KittyPool</a></li><li><a href="global.html#checkBoopSpace">checkBoopSpace</a></li><li><a href="global.html#checkBoopable">checkBoopable</a></li><li><a href="global.html#checkCatKitten">checkCatKitten</a></li><li><a href="global.html#clearGradsAndBoops">clearGradsAndBoops</a></li><li><a href="global.html#countCats">countCats</a></li><li><a href="global.html#findRowsOfThree">findRowsOfThree</a></li><li><a href="global.html#getAdjacentKitties">getAdjacentKitties</a></li><li><a href="global.html#getBoopSpace">getBoopSpace</a></li><li><a href="global.html#getCoordinatesFromID">getCoordinatesFromID</a></li><li><a href="global.html#getIDFromCoords">getIDFromCoords</a></li><li><a href="global.html#getKittyPool">getKittyPool</a></li><li><a href="global.html#getWinner">getWinner</a></li><li><a href="global.html#graduateKitty">graduateKitty</a></li><li><a href="global.html#initGameState">initGameState</a></li><li><a href="global.html#isEmptyBedSpace">isEmptyBedSpace</a></li><li><a href="global.html#isEmptyPool">isEmptyPool</a></li><li><a href="global.html#isInKittyPool">isInKittyPool</a></li><li><a href="global.html#isOffBoard">isOffBoard</a></li><li><a href="global.html#isValidTurn">isValidTurn</a></li><li><a href="global.html#placeKitty">placeKitty</a></li><li><a href="global.html#removeKitty">removeKitty</a></li><li><a href="global.html#removeRowOfThree">removeRowOfThree</a></li><li><a href="global.html#swapPlayer">swapPlayer</a></li><li><a href="global.html#updateBedAndPools">updateBedAndPools</a></li><li><a href="global.html#updateBedWithBoops">updateBedWithBoops</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#Boop">Boop</a></li><li><a href="global.html#GameState">GameState</a></li><li><a href="global.html#Kitty">Kitty</a></li><li><a href="global.html#KittyLocation">KittyLocation</a></li><li><a href="global.html#KittyPool">KittyPool</a></li><li><a href="global.html#checkBoopSpace">checkBoopSpace</a></li><li><a href="global.html#checkBoopable">checkBoopable</a></li><li><a href="global.html#checkCatKitten">checkCatKitten</a></li><li><a href="global.html#clearGradsAndBoops">clearGradsAndBoops</a></li><li><a href="global.html#countCats">countCats</a></li><li><a href="global.html#findRowsOfThree">findRowsOfThree</a></li><li><a href="global.html#getAdjacentKitties">getAdjacentKitties</a></li><li><a href="global.html#getBoopSpace">getBoopSpace</a></li><li><a href="global.html#getCoordinatesFromID">getCoordinatesFromID</a></li><li><a href="global.html#getCurrentPlayerKittyPool">getCurrentPlayerKittyPool</a></li><li><a href="global.html#getIDFromCoords">getIDFromCoords</a></li><li><a href="global.html#getWinner">getWinner</a></li><li><a href="global.html#graduateKitty">graduateKitty</a></li><li><a href="global.html#initGameState">initGameState</a></li><li><a href="global.html#isEmptyBedSpace">isEmptyBedSpace</a></li><li><a href="global.html#isEmptyPool">isEmptyPool</a></li><li><a href="global.html#isInKittyPool">isInKittyPool</a></li><li><a href="global.html#isOffBoard">isOffBoard</a></li><li><a href="global.html#isOwnedByPlayer">isOwnedByPlayer</a></li><li><a href="global.html#placeKitty">placeKitty</a></li><li><a href="global.html#removeKitty">removeKitty</a></li><li><a href="global.html#removeRowOfThree">removeRowOfThree</a></li><li><a href="global.html#swapPlayer">swapPlayer</a></li><li><a href="global.html#updateBedAndPools">updateBedAndPools</a></li><li><a href="global.html#updateBedWithBoops">updateBedWithBoops</a></li></ul>
     
 </nav>
 
@@ -119,7 +119,7 @@ function initGameState() {
  * @param {GameState} gameState - The current game state.
  * @returns {Kitty[]} The current player's kitty pool.
  */
-function getKittyPool(gameState) {
+function getCurrentPlayerKittyPool(gameState) {
     return gameState.kittyPool[gameState.currentPlayer];
 }
 
@@ -158,12 +158,12 @@ function isEmptyBedSpace(bedSpaceID, bedState) {
 }
 
 /**
- * Checks if it is a valid turn to move a kitty.
+ * Checks if a kitty is owned by the current player.
  * @param {string} kittyID -  The kitty's unique identifier.
  * @param {"orange"|"grey"} player - The current player.
- * @returns {boolean} Whether it is a valid turn to move that kitty.
+ * @returns {boolean} Whether it is owned by the current player.
  */
-function isValidTurn(kittyID, player) {
+function isOwnedByPlayer(kittyID, player) {
     if (kittyID[0] === player[0]) {
         return true;
     }
@@ -214,11 +214,11 @@ function clearGradsAndBoops(gameState) {
  */
 function updateBedAndPools(bedSpaceID, gameState, placedKitty) {
     const [row, column] = getCoordinatesFromID(bedSpaceID);
-    gameState.bedState[row][column] = getKittyPool(gameState).filter(
-        (kitty) => kitty.id === placedKitty
+    gameState.bedState[row][column] = getCurrentPlayerKittyPool(
+        gameState).filter((kitty) => kitty.id === placedKitty
     )[0];
     const player = gameState.currentPlayer;
-    gameState.kittyPool[player] = getKittyPool(gameState).filter(
+    gameState.kittyPool[player] = getCurrentPlayerKittyPool(gameState).filter(
         (kitty) => kitty.id !== placedKitty
     );
     return gameState;
@@ -560,7 +560,7 @@ function removeKitty(gameState, kittyID, bedSpaceID) {
     const player = kittyID.slice(0, -1);
     const [row, column] = getCoordinatesFromID(bedSpaceID);
     if (
-        isValidTurn(kittyID, gameState.currentPlayer) &amp;&amp;
+        isOwnedByPlayer(kittyID, gameState.currentPlayer) &amp;&amp;
         gameState.bedState[row][column].id === kittyID &amp;&amp;
         isEmptyPool(gameState)
     ) {
@@ -587,7 +587,7 @@ function placeKitty(bedSpaceID, gameState, placedKitty) {
     gameState = clearGradsAndBoops(gameState);
     if (
         isEmptyBedSpace(bedSpaceID, gameState.bedState) &amp;&amp;
-        isValidTurn(placedKitty, gameState.currentPlayer)
+        isOwnedByPlayer(placedKitty, gameState.currentPlayer)
     ) {
         gameState = updateBedAndPools(bedSpaceID, gameState, placedKitty);
         gameState.currentPlayer = swapPlayer(gameState.currentPlayer);
@@ -607,7 +607,7 @@ function placeKitty(bedSpaceID, gameState, placedKitty) {
 export {
     initGameState,
     isEmptyBedSpace,
-    isValidTurn,
+    isOwnedByPlayer,
     isInKittyPool,
     placeKitty,
     isEmptyPool,
@@ -616,11 +616,11 @@ export {
 
 const Boop = {
     initGameState,
-    getKittyPool,
+    getCurrentPlayerKittyPool,
     getCoordinatesFromID,
     getIDFromCoords,
     isEmptyBedSpace,
-    isValidTurn,
+    isOwnedByPlayer,
     isInKittyPool,
     swapPlayer,
     clearGradsAndBoops,
@@ -658,7 +658,7 @@ debugger;</code></pre>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Wed Jun 24 2026 13:41:10 GMT+0100 (British Summer Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Wed Jun 24 2026 16:05:23 GMT+0100 (British Summer Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>

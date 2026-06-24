@@ -29,7 +29,7 @@
 <nav >
     
     
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#Boop">Boop</a></li><li><a href="global.html#GameState">GameState</a></li><li><a href="global.html#Kitty">Kitty</a></li><li><a href="global.html#KittyLocation">KittyLocation</a></li><li><a href="global.html#KittyPool">KittyPool</a></li><li><a href="global.html#checkBoopSpace">checkBoopSpace</a></li><li><a href="global.html#checkBoopable">checkBoopable</a></li><li><a href="global.html#checkCatKitten">checkCatKitten</a></li><li><a href="global.html#clearGradsAndBoops">clearGradsAndBoops</a></li><li><a href="global.html#countCats">countCats</a></li><li><a href="global.html#findRowsOfThree">findRowsOfThree</a></li><li><a href="global.html#getAdjacentKitties">getAdjacentKitties</a></li><li><a href="global.html#getBoopSpace">getBoopSpace</a></li><li><a href="global.html#getCoordinatesFromID">getCoordinatesFromID</a></li><li><a href="global.html#getIDFromCoords">getIDFromCoords</a></li><li><a href="global.html#getKittyPool">getKittyPool</a></li><li><a href="global.html#getWinner">getWinner</a></li><li><a href="global.html#graduateKitty">graduateKitty</a></li><li><a href="global.html#initGameState">initGameState</a></li><li><a href="global.html#isEmptyBedSpace">isEmptyBedSpace</a></li><li><a href="global.html#isEmptyPool">isEmptyPool</a></li><li><a href="global.html#isInKittyPool">isInKittyPool</a></li><li><a href="global.html#isOffBoard">isOffBoard</a></li><li><a href="global.html#isValidTurn">isValidTurn</a></li><li><a href="global.html#placeKitty">placeKitty</a></li><li><a href="global.html#removeKitty">removeKitty</a></li><li><a href="global.html#removeRowOfThree">removeRowOfThree</a></li><li><a href="global.html#swapPlayer">swapPlayer</a></li><li><a href="global.html#updateBedAndPools">updateBedAndPools</a></li><li><a href="global.html#updateBedWithBoops">updateBedWithBoops</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#Boop">Boop</a></li><li><a href="global.html#GameState">GameState</a></li><li><a href="global.html#Kitty">Kitty</a></li><li><a href="global.html#KittyLocation">KittyLocation</a></li><li><a href="global.html#KittyPool">KittyPool</a></li><li><a href="global.html#checkBoopSpace">checkBoopSpace</a></li><li><a href="global.html#checkBoopable">checkBoopable</a></li><li><a href="global.html#checkCatKitten">checkCatKitten</a></li><li><a href="global.html#clearGradsAndBoops">clearGradsAndBoops</a></li><li><a href="global.html#countCats">countCats</a></li><li><a href="global.html#findRowsOfThree">findRowsOfThree</a></li><li><a href="global.html#getAdjacentKitties">getAdjacentKitties</a></li><li><a href="global.html#getBoopSpace">getBoopSpace</a></li><li><a href="global.html#getCoordinatesFromID">getCoordinatesFromID</a></li><li><a href="global.html#getCurrentPlayerKittyPool">getCurrentPlayerKittyPool</a></li><li><a href="global.html#getIDFromCoords">getIDFromCoords</a></li><li><a href="global.html#getWinner">getWinner</a></li><li><a href="global.html#graduateKitty">graduateKitty</a></li><li><a href="global.html#initGameState">initGameState</a></li><li><a href="global.html#isEmptyBedSpace">isEmptyBedSpace</a></li><li><a href="global.html#isEmptyPool">isEmptyPool</a></li><li><a href="global.html#isInKittyPool">isInKittyPool</a></li><li><a href="global.html#isOffBoard">isOffBoard</a></li><li><a href="global.html#isOwnedByPlayer">isOwnedByPlayer</a></li><li><a href="global.html#placeKitty">placeKitty</a></li><li><a href="global.html#removeKitty">removeKitty</a></li><li><a href="global.html#removeRowOfThree">removeRowOfThree</a></li><li><a href="global.html#swapPlayer">swapPlayer</a></li><li><a href="global.html#updateBedAndPools">updateBedAndPools</a></li><li><a href="global.html#updateBedWithBoops">updateBedWithBoops</a></li></ul>
     
 </nav>
 
@@ -1707,6 +1707,164 @@ being booped.</p></td>
 
     
 
+    <h4 class="name" id="getCurrentPlayerKittyPool"><span class="type-signature"></span>getCurrentPlayerKittyPool<span class="signature">(gameState)</span><span class="type-signature"> &rarr; {Array.&lt;<a href="global.html#Kitty">Kitty</a>>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>Returns current player's pool of kitties.</p></li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="boop.js.html">boop.js</a>, <a href="boop.js.html#line75">line 75</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>gameState</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#GameState">GameState</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The current game state.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>The current player's kitty pool.</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array.&lt;<a href="global.html#Kitty">Kitty</a>></span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
     <h4 class="name" id="getIDFromCoords"><span class="type-signature"></span>getIDFromCoords<span class="signature">(row, column)</span><span class="type-signature"> &rarr; {string}</span></h4>
 
     
@@ -1874,164 +2032,6 @@ being booped.</p></td>
     <dd>
         
 <span class="param-type">string</span>
-
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="getKittyPool"><span class="type-signature"></span>getKittyPool<span class="signature">(gameState)</span><span class="type-signature"> &rarr; {Array.&lt;<a href="global.html#Kitty">Kitty</a>>}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-    
-    <dt class="tag-description">Description:</dt>
-    <dd class="tag-description"><ul class="dummy"><li><p>Returns current player's pool of kitties.</p></li></ul></dd>
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="boop.js.html">boop.js</a>, <a href="boop.js.html#line75">line 75</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <h5 class="h5-parameters">Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>gameState</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#GameState">GameState</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The current game state.</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5 class="h5-returns">Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>The current player's kitty pool.</p>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Array.&lt;<a href="global.html#Kitty">Kitty</a>></span>
 
 
 
@@ -3200,7 +3200,7 @@ column.</p></td>
 
     
 
-    <h4 class="name" id="isValidTurn"><span class="type-signature"></span>isValidTurn<span class="signature">(kittyID, player)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    <h4 class="name" id="isOwnedByPlayer"><span class="type-signature"></span>isOwnedByPlayer<span class="signature">(kittyID, player)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
 
     
 
@@ -3210,7 +3210,7 @@ column.</p></td>
 <dl class="details">
     
     <dt class="tag-description">Description:</dt>
-    <dd class="tag-description"><ul class="dummy"><li><p>Checks if it is a valid turn to move a kitty.</p></li></ul></dd>
+    <dd class="tag-description"><ul class="dummy"><li><p>Checks if a kitty is owned by the current player.</p></li></ul></dd>
     
 
     
@@ -3358,7 +3358,7 @@ column.</p></td>
 
         
 <div class="param-desc">
-    <p>Whether it is a valid turn to move that kitty.</p>
+    <p>Whether it is owned by the current player.</p>
 </div>
 
 
@@ -5400,7 +5400,7 @@ since last turn.</p></td>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Wed Jun 24 2026 13:41:10 GMT+0100 (British Summer Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Wed Jun 24 2026 16:05:23 GMT+0100 (British Summer Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>

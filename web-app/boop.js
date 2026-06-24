@@ -72,7 +72,7 @@ function initGameState() {
  * @param {GameState} gameState - The current game state.
  * @returns {Kitty[]} The current player's kitty pool.
  */
-function getKittyPool(gameState) {
+function getCurrentPlayerKittyPool(gameState) {
     return gameState.kittyPool[gameState.currentPlayer];
 }
 
@@ -111,12 +111,12 @@ function isEmptyBedSpace(bedSpaceID, bedState) {
 }
 
 /**
- * Checks if it is a valid turn to move a kitty.
+ * Checks if a kitty is owned by the current player.
  * @param {string} kittyID -  The kitty's unique identifier.
  * @param {"orange"|"grey"} player - The current player.
- * @returns {boolean} Whether it is a valid turn to move that kitty.
+ * @returns {boolean} Whether it is owned by the current player.
  */
-function isValidTurn(kittyID, player) {
+function isOwnedByPlayer(kittyID, player) {
     if (kittyID[0] === player[0]) {
         return true;
     }
@@ -167,11 +167,11 @@ function clearGradsAndBoops(gameState) {
  */
 function updateBedAndPools(bedSpaceID, gameState, placedKitty) {
     const [row, column] = getCoordinatesFromID(bedSpaceID);
-    gameState.bedState[row][column] = getKittyPool(gameState).filter(
-        (kitty) => kitty.id === placedKitty
+    gameState.bedState[row][column] = getCurrentPlayerKittyPool(
+        gameState).filter((kitty) => kitty.id === placedKitty
     )[0];
     const player = gameState.currentPlayer;
-    gameState.kittyPool[player] = getKittyPool(gameState).filter(
+    gameState.kittyPool[player] = getCurrentPlayerKittyPool(gameState).filter(
         (kitty) => kitty.id !== placedKitty
     );
     return gameState;
@@ -513,7 +513,7 @@ function removeKitty(gameState, kittyID, bedSpaceID) {
     const player = kittyID.slice(0, -1);
     const [row, column] = getCoordinatesFromID(bedSpaceID);
     if (
-        isValidTurn(kittyID, gameState.currentPlayer) &&
+        isOwnedByPlayer(kittyID, gameState.currentPlayer) &&
         gameState.bedState[row][column].id === kittyID &&
         isEmptyPool(gameState)
     ) {
@@ -540,7 +540,7 @@ function placeKitty(bedSpaceID, gameState, placedKitty) {
     gameState = clearGradsAndBoops(gameState);
     if (
         isEmptyBedSpace(bedSpaceID, gameState.bedState) &&
-        isValidTurn(placedKitty, gameState.currentPlayer)
+        isOwnedByPlayer(placedKitty, gameState.currentPlayer)
     ) {
         gameState = updateBedAndPools(bedSpaceID, gameState, placedKitty);
         gameState.currentPlayer = swapPlayer(gameState.currentPlayer);
@@ -560,7 +560,7 @@ function placeKitty(bedSpaceID, gameState, placedKitty) {
 export {
     initGameState,
     isEmptyBedSpace,
-    isValidTurn,
+    isOwnedByPlayer,
     isInKittyPool,
     placeKitty,
     isEmptyPool,
@@ -569,11 +569,11 @@ export {
 
 const Boop = {
     initGameState,
-    getKittyPool,
+    getCurrentPlayerKittyPool,
     getCoordinatesFromID,
     getIDFromCoords,
     isEmptyBedSpace,
-    isValidTurn,
+    isOwnedByPlayer,
     isInKittyPool,
     swapPlayer,
     clearGradsAndBoops,
