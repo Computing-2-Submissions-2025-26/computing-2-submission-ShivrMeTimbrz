@@ -533,7 +533,7 @@ function removeKitty(gameState, kittyID, bedSpaceID) {
  * Handles boops, graduations, rows of three, and winner checks.
  * @param {string} bedSpaceID - The ID of the destination bed space.
  * @param {GameState} gameState - The current game state.
- * @param {Kitty} placedKitty - The kitty being placed.
+ * @param {string} placedKitty - The kitty being placed's identifier.
  * @returns {GameState} The updated game state.
  */
 function placeKitty(bedSpaceID, gameState, placedKitty) {

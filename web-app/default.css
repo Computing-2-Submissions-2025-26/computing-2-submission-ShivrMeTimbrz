@@ -63,7 +63,7 @@ html, body {
 .kitty:focus-visible {
   outline: 1vmin dashed blue;
   outline-offset: 1vmin;
-  z-index: 10;
+  z-index: 20;
 }
 
 .cell:focus-visible {

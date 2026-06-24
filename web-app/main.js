@@ -14,6 +14,39 @@ const kittyPools = document.getElementsByClassName("kittyPool");
 
 let heldKitty = null;
 
+//sound effects
+let boopSound = document.createElement("audio");
+boopSound.src = "./assets/boop.mp3";
+boopSound.preload = "auto";
+
+let bgm = document.createElement("audio");
+bgm.src = "./assets/backgroundmusic.mp3";
+bgm.preload = "auto";
+bgm.loop = true;
+bgm.volume = 0.2;
+
+let victory = document.createElement("audio");
+victory.src = "./assets/victory.mp3";
+victory.preload = "auto";
+
+const kittenSounds = [
+    "./assets/kitten1.wav",
+    "./assets/kitten2.wav",
+    "./assets/kitten3.wav"
+];
+
+function boopAudio() {
+    const sound = boopSound.cloneNode();
+    sound.play();
+}
+
+function playKittenSound() {
+    const randomIndex = Math.floor(Math.random() * kittenSounds.length);
+    const sound = document.createElement("audio");
+    sound.src = kittenSounds[randomIndex];
+    sound.play();
+}
+
 // Dragging Lagging
 let mouseX = 0; //Mouse Location X
 let mouseY = 0; //Mouse Location Y
@@ -30,6 +63,59 @@ function kittyDrag() {
         heldKitty.style.left = (kittyX - heldKitty.offsetWidth / 2) + "px";
         heldKitty.style.top = (kittyY - heldKitty.offsetHeight / 2) + "px";
     }
+}
+
+function pickUpKittyARIA() {
+    Array.from(kitties).forEach(function (kitty) {
+        kitty.tabIndex = -1;
+    });
+    let index = 1;
+    Array.from(bedSpaces).forEach(function (bedSpace) {
+        bedSpace.tabIndex = index + 1;
+    });
+    Array.from(kittyPools).forEach(function (kittyPool) {
+        if (kittyPool.id === gameState.currentPlayer) {
+            kittyPool.tabIndex = 1;
+        }
+    });
+}
+
+function kittyPoolARIA() {
+    if (!isEmptyPool(gameState)) {
+        Array.from(kittyPools).forEach(function (kittyPool) {
+            Array.from(kittyPool.children).forEach(function (kitty) {
+                if (kitty.id.slice(0, -1) === gameState.currentPlayer) {
+                    kitty.tabIndex = 0;
+                } else {
+                    kitty.tabIndex = -1;
+                }
+            });
+        });
+    } else {
+        Array.from(bedSpaces).forEach(function (bedSpace) {
+            Array.from(bedSpace.children).forEach(function (kitty) {
+                if (kitty.id.slice(0, -1) === gameState.currentPlayer) {
+                    kitty.tabIndex = 0;
+                    console.log(kitty);
+                } else {
+                    kitty.tabIndex = -1;
+                }
+            });
+        });
+    }
+}
+
+function dropKittyARIA() {
+    Array.from(bedSpaces).forEach(function (bedSpace) {
+        Array.from(bedSpace.children).forEach(function (kitty){
+            kitty.tabIndex = -1;
+        });
+        bedSpace.tabIndex = -1;
+    });
+    Array.from(kittyPools).forEach(function (kittyPool) {
+        kittyPool.tabIndex = -1;
+    });
+    kittyPoolARIA();
 }
 
 function setPoolClickThrough(enabled) {
@@ -56,6 +142,8 @@ function dropKitty(droppedKitty, container) {
 }
 
 function pickUpKitty(heldKitty) {
+    bgm.play();
+    playKittenSound();
     pickUpKittyARIA();
     heldKitty.style.position = "fixed";
     heldKitty.style.zIndex = MAX_Z + 1;
@@ -89,6 +177,8 @@ function displayWinner(winner) {
     winnerPopup.src = "assets/" + winner + "Wins.svg";
     winnerPopup.alt = "Grey Wins!";
     winnerPopup.classList.add("show-winner-popup");
+    bgm.pause();
+    victory.play();
 }
 
 function isWinner(gameState) {
@@ -116,66 +206,13 @@ function transitionKitty(destination, kitty) {
         kitty.style.transition = "";
     }, {once: true});
 }
-
-function kittyPoolARIA() {
-    if (!isEmptyPool(gameState)) {
-        Array.from(kittyPools).forEach(function (kittyPool) {
-            Array.from(kittyPool.children).forEach(function (kitty) {
-                if (kitty.id.slice(0, -1) === gameState.currentPlayer) {
-                    kitty.tabIndex = 0;
-                } else {
-                    kitty.tabIndex = -1;
-                }
-            });
-        });
-    } else {
-        Array.from(bedSpaces).forEach(function (bedSpace) {
-            Array.from(bedSpace.children).forEach(function (kitty) {
-                if (kitty.id.slice(0, -1) === gameState.currentPlayer) {
-                    kitty.tabIndex = 0;
-                    console.log(kitty);
-                } else {
-                    kitty.tabIndex = -1;
-                }
-            });
-        });
-    }
-}
-
 function boop(boops) {
     boops.forEach(function ([destination, kitty]) {
         const kittyElement = document.getElementById(kitty);
         const destElement = document.getElementById(destination);
         transitionKitty(destElement, kittyElement);
+        boopAudio();
     });
-}
-
-function pickUpKittyARIA() {
-    Array.from(kitties).forEach(function (kitty) {
-        kitty.tabIndex = -1;
-    });
-    let index = 1;
-    Array.from(bedSpaces).forEach(function (bedSpace) {
-        bedSpace.tabIndex = index + 1;
-    });
-    Array.from(kittyPools).forEach(function (kittyPool) {
-        if (kittyPool.id === gameState.currentPlayer) {
-            kittyPool.tabIndex = 1;
-        }
-    });
-}
-
-function dropKittyARIA() {
-    Array.from(bedSpaces).forEach(function (bedSpace) {
-        Array.from(bedSpace.children).forEach(function (kitty){
-            kitty.tabIndex = -1;
-        });
-        bedSpace.tabIndex = -1;
-    });
-    Array.from(kittyPools).forEach(function (kittyPool) {
-        kittyPool.tabIndex = -1;
-    });
-    kittyPoolARIA();
 }
 
 //Programme set up
@@ -185,11 +222,26 @@ document.addEventListener("mousemove", function (event) {
     mouseY = event.clientY;
 });
 
+document.addEventListener("focusin", function (event) {
+    if (heldKitty) {
+        const selected = event.target;
+        const rect = selected.getBoundingClientRect();
+        kittyX = rect.left + rect.width / 2;
+        kittyY = rect.top + rect.height / 2;
+        heldKitty.style.left = (kittyX - heldKitty.offsetWidth / 2) + "px";
+        heldKitty.style.top = (kittyY - heldKitty.offsetHeight / 2) + "px";
+    }
+});
+
 Array.from(kitties).forEach(function (kitty) {
     kitty.addEventListener("click", function (event) {
         // Prevents bubbling!
         event.stopPropagation();
-        if (!heldKitty && isValidTurn(kitty.id, gameState.currentPlayer)) {
+        if (
+            !heldKitty &&
+            isValidTurn(kitty.id, gameState.currentPlayer) &&
+            !gameState.winner
+        ) {
             if (isInKittyPool(gameState, kitty.id)) {
                 heldKitty = event.target;
                 pickUpKitty(heldKitty);
@@ -197,7 +249,7 @@ Array.from(kitties).forEach(function (kitty) {
                 let returnKitty = event.target;
                 let bedSpace = returnKitty.parentNode;
                 gameState = removeKitty(gameState, returnKitty.id, bedSpace.id);
-                graduateKittyUI(gameState.graduations); 
+                graduateKittyUI(gameState.graduations);
                 boop(gameState.boops);
                 dropKittyARIA();
             }
@@ -208,7 +260,8 @@ Array.from(kitties).forEach(function (kitty) {
         if (
             (event.key === "Enter" || event.key === " ") &&
             !heldKitty &&
-            isValidTurn(kitty.id, gameState.currentPlayer)
+            isValidTurn(kitty.id, gameState.currentPlayer) &&
+            !gameState.winner
         ) {
             if (isInKittyPool(gameState, kitty.id)) {
                 event.preventDefault(); //stop page scrolling
@@ -228,7 +281,11 @@ Array.from(kitties).forEach(function (kitty) {
 
 Array.from(bedSpaces).forEach(function (bedSpace) {
     bedSpace.addEventListener("click", function () {
-        if (heldKitty && isEmptyBedSpace(bedSpace.id, gameState.bedState)) {
+        if (
+            heldKitty &&
+            isEmptyBedSpace(bedSpace.id, gameState.bedState) &&
+            !gameState.winner
+        ) {
             let heldKittyID = heldKitty.id;
             heldKitty.tabIndex = -1;
             heldKitty = dropKitty(heldKitty, bedSpace);
@@ -243,7 +300,8 @@ Array.from(bedSpaces).forEach(function (bedSpace) {
         if (
             (event.key === "Enter" || event.key === " ") &&
             heldKitty &&
-            isEmptyBedSpace(bedSpace.id, gameState.bedState)
+            isEmptyBedSpace(bedSpace.id, gameState.bedState) &&
+            !gameState.winner
         ) {
             event.preventDefault(); //stop page scrolling
             let heldKittyID = heldKitty.id;
@@ -260,7 +318,11 @@ Array.from(bedSpaces).forEach(function (bedSpace) {
 
 Array.from(kittyPools).forEach(function (kittyPool) {
     kittyPool.addEventListener("click", function () {
-        if (heldKitty && isValidTurn(kittyPool.id, gameState.currentPlayer)) {
+        if (
+            heldKitty &&
+            isValidTurn(kittyPool.id, gameState.currentPlayer) &&
+            !gameState.winner
+        ) {
             heldKitty = dropKitty(heldKitty, kittyPool);
             dropKittyARIA();
         }
@@ -269,7 +331,8 @@ Array.from(kittyPools).forEach(function (kittyPool) {
         if (
             (event.key === "Enter" || event.key === " ") &&
             heldKitty &&
-            isValidTurn(kittyPool.id, gameState.currentPlayer)
+            isValidTurn(kittyPool.id, gameState.currentPlayer) &&
+            !gameState.winner
         ) {
             event.preventDefault(); //stop page scrolling
             heldKitty = dropKitty(heldKitty, kittyPool);
