@@ -302,7 +302,7 @@ describe("placeKitty", function () {
             "orange"
         );
     });
-    it("returns a booped kitty to the pool when pushed off the board", function () {
+    it("returns a kitty to the pool when booped off the board", function () {
         let gameState = initGameState();
         gameState = placeKitty("00", gameState, "orange1");
         gameState = placeKitty("01", gameState, "grey1");
