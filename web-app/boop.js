@@ -131,8 +131,7 @@ function isOwnedByPlayer(kittyID, player) {
  */
 function isInKittyPool(gameState, kittyID) {
     const player = gameState.currentPlayer;
-    const pool = gameState.kittyPool[player].map((kitty) => kitty.id);
-    return (pool.includes(kittyID));
+    return gameState.kittyPool[player].some((kitty) => kitty.id === kittyID);
 }
 
 /**
