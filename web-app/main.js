@@ -5,7 +5,8 @@
 // HOMEGROWN HUMAN CODE!!!
 // The use of generative AI has NOT been used to write any code in this web-app.
 // Generative AI has been used minimally and only to help find functions and
-// methods and to debug code if troubleshooting remained fruitless.
+// methods and to debug code if troubleshooting remained fruitless. Any code
+// created by generative AI has been rewritten.
 
 // Import Functions from Boop
 // (ACTIONS): placeKitty, removeKitty, initGameState
