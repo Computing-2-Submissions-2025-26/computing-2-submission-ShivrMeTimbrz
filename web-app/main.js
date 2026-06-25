@@ -2,6 +2,11 @@
 // the UI for Boop has both mouse and keyboard accessibility
 // using a click and follow style for mouse or tab/space and enter for keyboard.
 
+// HOMEGROWN HUMAN CODE!!!
+// The use of generative AI has NOT been used to write any code in this web-app.
+// Generative AI has been used minimally and only to help find functions and
+// methods and to debug code if troubleshooting remained fruitless.
+
 // Import Functions from Boop
 // (ACTIONS): placeKitty, removeKitty, initGameState
 // (EXTRACTING INFORMATION): isEmptyBedSpace, isOwnedByPlayer,
