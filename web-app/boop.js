@@ -2,18 +2,21 @@
 import R from "./ramda.js";
 
 /**
+ * @memberof Boop
  * @typedef {Object} Kitty
  * @property {string} id - The unique identifier for that kitty.
  * @property {boolean} isCat - Is that kitty a Cat.
  */
 
 /**
+ * @memberof Boop
  * @typedef {Object} KittyPool
  * @property {Kitty[]} orange - An array of kitties in the orange player's pool.
  * @property {Kitty[]} grey - An array of kitties in the grey player's pool.
  */
 
 /**
+ * @memberof Boop
  * @typedef {Object} GameState
  * @property {Array<Array<Kitty|null>>} bedState - A 6x6 bed.
  * @property {"orange"|"grey"} player - The current player.
@@ -26,6 +29,7 @@ import R from "./ramda.js";
 
 /**
  * Creates a new game state.
+ * @memberof Boop
  * @returns {GameState} A game state initialised with default values.
  */
 function initGameState() {
@@ -69,6 +73,7 @@ function initGameState() {
 
 /**
  * Returns current player's pool of kitties.
+ * @memberof Boop
  * @param {GameState} gameState - The current game state.
  * @returns {Kitty[]} The current player's kitty pool.
  */
@@ -78,6 +83,7 @@ function getCurrentPlayerKittyPool(gameState) {
 
 /**
  * Converts a bed space ID to a set of grid coordinates.
+ * @memberof Boop
  * @param {string} id - A two digit string representing the row and column.
  * @returns {number[]} A two element array: [row, column]
  */
@@ -87,6 +93,7 @@ function getCoordinatesFromID(id) {
 
 /**
  * Converts an set of grid coordinates into a bed space ID.
+ * @memberof Boop
  * @param {number} row - The bed space's row.
  * @param {number} column - The bed space's column.
  * @returns {string} The ID of the bed space at those coordinates.
@@ -97,6 +104,7 @@ function getIDFromCoords(row, column) {
 
 /**
  * Checks if a bedspace is empty.
+ * @memberof Boop
  * @param {string} bedSpaceID - A two digit string representing the row and
  * column.
  * @param {Array<Array<Kitty|null>>} bedState - The 6x6 bed contents.
@@ -112,6 +120,7 @@ function isEmptyBedSpace(bedSpaceID, bedState) {
 
 /**
  * Checks if a kitty is owned by the current player.
+ * @memberof Boop
  * @param {string} kittyID -  The kitty's unique identifier.
  * @param {"orange"|"grey"} player - The current player.
  * @returns {boolean} Whether it is owned by the current player.
@@ -125,6 +134,7 @@ function isOwnedByPlayer(kittyID, player) {
 
 /**
  * Checks if a kitty is in the current player's kitty pool.
+ * @memberof Boop
  * @param {GameState} gameState - The current game state.
  * @param {string} kittyID - The kitty's unique identifier.
  * @returns {boolean} Whether that kitty is in the current player's pool.
@@ -136,6 +146,7 @@ function isInKittyPool(gameState, kittyID) {
 
 /**
  * Swaps the current player to the other player.
+ * @memberof Boop
  * @param {"orange"|"grey"} player - The current player.
  * @returns {"orange"|"grey"} The next player.
  */
@@ -148,6 +159,7 @@ function swapPlayer(player) {
 
 /**
  * Clears the previous turn's graduations and boops from the game state.
+ * @memberof Boop
  * @param {GameState} gameState - The current game state.
  * @returns {GameState} The updated game state.
  */
@@ -159,6 +171,7 @@ function clearGradsAndBoops(gameState) {
 
 /**
  * Moves a kitty from the current player's pool onto the bed.
+ * @memberof Boop
  * @param {string} bedSpaceID - The destination bed space's ID.
  * @param {GameState} gameState - The current game state.
  * @param {string} placedKitty - The placed kitty's ID.
@@ -177,6 +190,7 @@ function updateBedAndPools(bedSpaceID, gameState, placedKitty) {
 }
 
 /**
+ * @memberof Boop
  * @typedef {Object} KittyLocation
  * @property {number} row
  * @property {number} column
@@ -185,6 +199,7 @@ function updateBedAndPools(bedSpaceID, gameState, placedKitty) {
 
 /**
  * Finds any and all adjacent kitties to a given bed space.
+ * @memberof Boop
  * @param {Array<Array<Kitty|null>>} bedState - The 6x6 bed contents.
  * @param {string} bedSpaceID - The bedspace's ID
  * @returns {KittyLocation[]} An array of kitties and their coordinates.
@@ -223,6 +238,7 @@ function getAdjacentKitties(bedState, bedSpaceID) {
 
 /**
  * Calculates the destination space of a booped kitty.
+ * @memberof Boop
  * @param {number[]} boopPosition - The row and column of the kitty
  * causing the boop.
  * @param {number[]} boopedPosition - The row and column of the kitty
@@ -238,6 +254,7 @@ function getBoopSpace([boopRow, boopColumn], [boopedRow, boopedColumn]) {
 
 /**
  * Checks if the given coordinates are outside the 6×6 bed.
+ * @memberof Boop
  * @param {number} row - The row coordinate.
  * @param {number} column - The column coordinate.
  * @returns {boolean} Whether the coordinates are outside the 6×6 bed.
@@ -251,6 +268,7 @@ function isOffBoard(row, column) {
 
 /**
  * Checks whether a booped kitty can move to its destination space.
+ * @memberof Boop
  * @param {Array<Array<Kitty|null>>} bedState - The contents of the 6×6 bed.
  * @param {number[]} boopPosition - The row and column of the kitty
  * causing the boop.
@@ -279,6 +297,7 @@ function checkBoopSpace(
 
 /**
  * Checks whether a kitten is booping a cat.
+ * @memberof Boop
  * @param {Kitty} boopingKitty - The kitty causing the boop.
  * @param {Kitty} boopedKitty - The kitty being booped.
  * @returns {boolean} Whether the boop is allowed.
@@ -291,6 +310,7 @@ function checkCatKitten(boopingKitty, boopedKitty) {
 }
 
 /**
+ * @memberof Boop
  * @typedef {Object} Boop
  * @property {Kitty} kitty - The kitty being booped.
  * @property {"offboard"|number[]} destination - The destination coordinates or
@@ -298,6 +318,7 @@ function checkCatKitten(boopingKitty, boopedKitty) {
  */
 
 /**
+ * @memberof Boop
  * Checks for valid boops from a given bed space.
  * @param {Array<Array<Kitty|null>>} bedState - The contents of the 6×6 bed.
  * @param {string} bedSpaceID - The ID of the bed space being checked.
@@ -328,6 +349,7 @@ function checkBoopable(bedState, bedSpaceID) {
 /**
  * Updates the bed state by moving booped kitties to their destinations.
  * Returns kitties to their player's pool if they are pushed off the bed.
+ * @memberof Boop
  * @param {GameState} gameState - The current game state.
  * @param {Boop[]} boopables - The valid boopable kitties and their
  * destinations.
@@ -353,6 +375,7 @@ function updateBedWithBoops(gameState, boopables) {
 
 /**
  * Finds all rows of three matching kitties on the bed.
+ * @memberof Boop
  * @param {Array<Array<Kitty|null>>} bedState - The contents of the 6×6 bed.
  * @returns {KittyLocation[][]} Groups of three kitties and their positions.
  */
@@ -409,6 +432,7 @@ function findRowsOfThree(bedState) {
 
 /**
  * Checks if the current player's kitty pool is empty.
+ * @memberof Boop
  * @param {GameState} gameState - The current game state.
  * @returns {boolean} Whether the current player's kitty pool is empty.
  */
@@ -421,6 +445,7 @@ function isEmptyPool(gameState) {
 
 /**
  * Graduates a kitten into a cat.
+ * @memberof Boop
  * @param {GameState} gameState - The current game state.
  * @param {Kitty} kitty - The kitten to graduate.
  * @returns {Kitty} The graduated kitty.
@@ -434,6 +459,7 @@ function graduateKitty(gameState, kitty) {
 
 /**
  * Counts the number of cats of each colour on the bed.
+ * @memberof Boop
  * @param {Array<Array<Kitty|null>>} bedState - The contents of the 6×6 bed.
  * @returns {number[]} The number of orange and grey cats respectively.
  */
@@ -455,6 +481,7 @@ function countCats(bedState) {
 
 /**
  * Checks if the current game state results in a winner.
+ * @memberof Boop
  * @param {object} gameState - The current game state.
  * @returns {string} The winning player or null if there isn't one.
  */
@@ -478,6 +505,7 @@ function getWinner(gameState) {
 
 /**
  * Removes rows of three from the bed and graduates any kittens involved.
+ * @memberof Boop
  * @param {GameState} gameState - The current game state.
  * @param {Array<Array<LocationKitty>>} trios - The rows of three kitties to
  * check.
@@ -503,6 +531,7 @@ function removeRowOfThree(gameState, trios) {
 /**
  * Removes a kitty from the bed, graduates it, and returns it to
  * the player's pool.
+ * @memberof Boop
  * @param {GameState} gameState - The current game state.
  * @param {string} kittyID - The ID of the kitty being removed.
  * @param {string} bedSpaceID - The ID of the bed space containing the kitty.
@@ -530,6 +559,7 @@ function removeKitty(gameState, kittyID, bedSpaceID) {
 /**
  * Places a kitty on the bed and processes the resulting game updates.
  * Handles boops, graduations, rows of three, and winner checks.
+ * @memberof Boop
  * @param {string} bedSpaceID - The ID of the destination bed space.
  * @param {GameState} gameState - The current game state.
  * @param {string} placedKitty - The kitty being placed's identifier.
